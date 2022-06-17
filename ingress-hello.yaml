@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-ingress
+  annotations:
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - hello.example.com
+    secretName: server-tls
+  rules:
+  - host: hello.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-k8s-svc
+            port:
+              number: 80
+    
