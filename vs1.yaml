@@ -2,7 +2,7 @@
 apiVersion: cis.f5.com/v1
 kind: TLSProfile
 metadata:
-  name: reencrypt-tls
+  name: reencrypt-tls-1
   namespace: nginx-ingress
   labels:
     f5cr: "true"
@@ -13,7 +13,7 @@ spec:
     serverSSL: /Common/serverssl
     reference: bigip
   hosts:
-  - hello.example.com
+  - test.example.com
 
 ---
 apiVersion: cis.f5.com/v1
@@ -21,13 +21,13 @@ kind: VirtualServer
 metadata:
   labels:
     f5cr: "true"
-  name: hello-with-policy
+  name: hello-with-policy-1
   namespace: nginx-ingress
 spec:
-  host: hello.example.com
-  virtualServerAddress: 10.8.38.111
-  tlsProfileName: reencrypt-tls
-  policyName: hello-policy
+  host: test.example.com
+  virtualServerAddress: 10.8.38.112
+  tlsProfileName: reencrypt-tls-1
+  policyName: hello-policy-1
   httpTraffic: none
   pools:
     - monitor:
@@ -47,29 +47,9 @@ kind: Policy
 metadata:
   labels:
     f5cr: "true"
-  name: hello-policy
+  name: hello-policy-1
   namespace: nginx-ingress
 spec:
   profiles:
     http: /Common/http
----
-apiVersion: "cis.f5.com/v1"
-kind: ExternalDNS
-metadata:
-  name: exdns
-  labels:
-    f5cr: "true"
-spec:
-  domainName: hello.example.com
-  dnsRecordType: A
-  loadBalanceMethod: round-robin
-  pools:
-  - dnsRecordType: A
-    loadBalanceMethod: round-robin
-    dataServerName: /Common/TP_F5
-    monitor:
-      type: https
-      send: "GET /"
-      recv: ""
-      interval: 10
-      timeout: 10
+

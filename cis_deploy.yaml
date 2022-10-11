@@ -39,9 +39,9 @@ spec:
             # See the k8s-bigip-ctlr documentation for information about
             # all config options
             # https://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest
-            "--bigip-username=admin",
+            "--bigip-username=k8s",
             "--bigip-password=uniforce",
-            "--bigip-url=10.8.34.174",
+            "--bigip-url=10.8.38.22",
             #"--ingress-link-mode=true",
             "--bigip-partition=k8s",
             "--pool-member-type=nodeport",
